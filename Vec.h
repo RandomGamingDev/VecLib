@@ -48,22 +48,27 @@ public:
 		return Vec(newList);
 	}
 
+	// Size
+	size_t size() {
+		return this->list.size();
+	}
+
 	// Modifiers
 
 	Vec& abs() {
-		return this->for_each([](Vec& l, num& v, size_t i) { return abs(v); });
+		return this->for_each([](Vec& l, num& v, size_t i) { return std::abs(v); });
 	}
 	
 	Vec& floor() {
-		return this->for_each([](Vec& l, num& v, size_t i) { return floor(v); });
+		return this->for_each([](Vec& l, num& v, size_t i) { return std::floor(v); });
 	}
 
 	Vec& ceil() {
-		return this->for_each([](Vec& l, num& v, size_t i) { return ceil(v); });
+		return this->for_each([](Vec& l, num& v, size_t i) { return std::ceil(v); });
 	}
 
 	Vec& round() {
-		return this->for_each([](Vec& l, num& v, size_t i) { return round(v); });
+		return this->for_each([](Vec& l, num& v, size_t i) { return std::round(v); });
 	}
 
 	Vec& flip() {
@@ -84,7 +89,7 @@ public:
 	}
 
 	Vec operator+(Vec& toAdd) {
-		return this->copy().for_each([toAdd](Vec& l, num& v, size_t i) { return v + toAdd[i]; });
+		return this->copy().for_each([toAdd](Vec& l, num& v, size_t i) { return v + toAdd.list[i]; });
 	}
 
 	template <typename addType>
@@ -93,7 +98,7 @@ public:
 	}
 
 	Vec& operator+=(Vec& toAdd) {
-		return this->for_each([toAdd](Vec& l, num& v, size_t i) { return v + toAdd[i]; });
+		return this->for_each([toAdd](Vec& l, num& v, size_t i) { return v + toAdd.list[i]; });
 	}
 
 	// Subtraction
@@ -104,7 +109,7 @@ public:
 	}
 
 	Vec operator-(Vec& toSub) {
-		return this->copy().for_each([toSub](Vec& l, num& v, size_t i) { return v - toSub[i]; });
+		return this->copy().for_each([toSub](Vec& l, num& v, size_t i) { return v - toSub.list[i]; });
 	}
 
 	template <typename subType>
@@ -113,7 +118,7 @@ public:
 	}
 
 	Vec& operator-=(Vec& toSub) {
-		return this->for_each([toSub](Vec& l, num& v, size_t i) { return v - toSub[i]; });
+		return this->for_each([toSub](Vec& l, num& v, size_t i) { return v - toSub.list[i]; });
 	}
 
 	// Multiplication
@@ -124,7 +129,7 @@ public:
 	}
 
 	Vec operator*(Vec& toMul) {
-		return this->copy().for_each([toMul](Vec& l, num& v, size_t i) { return v * toMul[i]; });
+		return this->copy().for_each([toMul](Vec& l, num& v, size_t i) { return v * toMul.list[i]; });
 	}
 
 	template <typename mulType>
@@ -133,7 +138,7 @@ public:
 	}
 
 	Vec& operator*=(Vec& toMul) {
-		return this->for_each([toMul](Vec& l, num& v, size_t i) { return v * toMul[i]; });
+		return this->for_each([toMul](Vec& l, num& v, size_t i) { return v * toMul.list[i]; });
 	}
 
 	// Division
@@ -144,7 +149,7 @@ public:
 	}
 
 	Vec operator/(Vec& toDiv) {
-		return this->copy().for_each([toDiv](Vec& l, num& v, size_t i) { return v / toDiv[i]; });
+		return this->copy().for_each([toDiv](Vec& l, num& v, size_t i) { return v / toDiv.list[i]; });
 	}
 
 	template <typename divType>
@@ -153,7 +158,23 @@ public:
 	}
 
 	Vec& operator/=(Vec& toDiv) {
-		return this->for_each([toDiv](Vec& l, num& v, size_t i) { return v / toDiv[i]; });
+		return this->for_each([toDiv](Vec& l, num& v, size_t i) { return v / toDiv.list[i]; });
+	}
+
+	// Exponents
+	
+	template <typename powType>
+	Vec& pow(powType toPow) {
+		return this->for_each([toPow](Vec& l, num& v, size_t i) { return std::pow(v, toPow); });
+	}
+
+	template <typename powType>
+	Vec& powExp(powType toPow) {
+		return this->for_each([toPow](Vec& l, num& v, size_t i) { return std::pow(toPow, v); });
+	}
+
+	Vec& pow(Vec toPow) {
+		return this->for_each([toPow](Vec& l, num& v, size_t i) { return std::pow(v, toPow.list[i]); });
 	}
 
 	// String conversion
