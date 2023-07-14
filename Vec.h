@@ -1,6 +1,7 @@
 #ifndef MATH_VECTOR
 #define MATH_VECTOR
 
+#include <cstddef>
 #include <array>
 #include <functional>
 #include <cmath>
